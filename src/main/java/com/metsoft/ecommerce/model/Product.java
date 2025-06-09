@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "products")
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -31,7 +32,7 @@ public class Product {
 
     @Column(name = "createDate")
     private Date createDate;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -39,4 +40,8 @@ public class Product {
     @JsonIgnore
     private List<Order> orderItems;
 
+
+    public Product(String productName, String description, double price, Date createDate, Category category) {
+        this.category = category;
+    }
 }
